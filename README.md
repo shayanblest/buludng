@@ -1,6 +1,6 @@
 # BuludNG
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0 by [Shayan Blest](https://github.com/shayanblest) for using the angular front end projects.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0 by [Shayan Blest](https://github.com/shayanblest) for using in the angular front end applications.
 This project includes easy to use, flexible and easy customizable component.
 
 
