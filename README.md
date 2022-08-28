@@ -1,6 +1,15 @@
 # BuludNG
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.'
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0 by [Shayan Blest](https://github.com/shayanblest) for using the angular front end projects.
+This project includes easy to use, flexible and easy customizable component.
+
+
+>**Warning** 
+ This project in `DVELOPING` mode and many features will be add.
+ 
+>**Note**
+At this time only the Data Table component is ready to use and I Working on many amazing things that can help you to build your angular apps easy and fast with your custom templates without conflicts.
+
 
 ## Installing packages
 
