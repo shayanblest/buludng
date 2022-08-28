@@ -5,7 +5,7 @@ This project includes easy to use, flexible and easy customizable component.
 
 
 >**Warning** 
- This project in `DVELOPING` mode and many features will be add.
+ This project is `DVELOPING` and many features will be add.
  
 >**Note**
 At this time only the Data Table component is ready to use and I Working on many amazing things that can help you to build your angular apps easy and fast with your custom templates without conflicts.
