@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { DatatableModule } from 'buludng/datatable';
+import { AlertModule } from 'buludng/alert';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { DatatableModule } from 'buludng/datatable';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DatatableModule
+    DatatableModule,
+    AlertModule
   ],
   providers: [],
   bootstrap: [AppComponent]
