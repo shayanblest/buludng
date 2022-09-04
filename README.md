@@ -1,18 +1,27 @@
-# Bulud
+# BuludNG
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0 by [Shayan Blest](https://github.com/shayanblest) for using in the angular front end applications.
+This project includes easy to use, flexible and easy customizable component.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+>**Warning** 
+ This project is `DVELOPING` and many features will be add.
+ 
+>**Note**
+At this time only the Data Table component is ready to use and I Working on many amazing things that can help you to build your angular apps easy and fast with your custom templates without conflicts.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installing packages
 
-## Build
+For install the npm packages that used in this project. run `npm i` and wait the installation ends.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Build the library package
+
+Run `ng build --watch` for build the library package and use it in the demo application.
+
+## Run the demo application development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4300/`. The application will automatically reload if you change any of the source files.
 
 ## Running unit tests
 
