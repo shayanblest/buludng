@@ -27,7 +27,7 @@
     <!--begin::Card toolbar-->
     <div class="card-toolbar col-auto">
       <!--begin::Add customer-->
-      <a [routerLink]="['/users/roles/add']" class="btn btn-primary">
+      <a (click)="openModal(modal1)" class="btn btn-primary">
         <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/metronic/releases/2022-07-14-092914/core/html/src/media/icons/duotune/general/gen041.svg-->
         <span class="svg-icon svg-icon-2x me-1">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -257,3 +257,10 @@
   </div>
   <!--end::Card body-->
 </div>
+
+<ng-template #modal1>
+  <app-test-component></app-test-component>
+</ng-template>
+
+
+<a (click)="closeModal()" class="btn btn-primary">Close modal</a>

@@ -8,16 +8,20 @@ import { AppComponent } from './app.component';
 
 import { DatatableModule } from 'buludng/datatable';
 import { AlertModule } from 'buludng/alert';
+import { ModalModule } from 'projects/buludng/modal';
+import { TestComponentComponent } from './components/test-component/test-component.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TestComponentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     DatatableModule,
-    AlertModule
+    AlertModule,
+    ModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]
