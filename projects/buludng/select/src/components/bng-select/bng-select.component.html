@@ -1,0 +1,37 @@
+<div *ngIf="selectedItem" style="position: relative;">
+  <ng-container *ngIf="selectedItemTemplate" [ngTemplateOutlet]="selectedItemTemplate.templateRef"
+    [ngTemplateOutletContext]="{ $implicit: selectedItem }"></ng-container>
+  <div (click)="removeSelected()"
+    class="btn btn-icon btn-sm btn-active-light-primary my-auto me-2 top-0 bottom-0  position-absolute end-0 ">
+    <span class="svg-icon svg-icon-1"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)"
+          fill="currentColor"></rect>
+        <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor">
+        </rect>
+      </svg>
+    </span>
+  </div>
+</div>
+
+<span (click)="toggleOpen()" [class]="class" *ngIf="!selectedItem"
+  style="display: flex; flex-wrap: nowrap; justify-content: space-between;">
+  <span *ngIf="placeHolder">{{ placeHolder }}</span>
+  <svg style="width: 20px;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    x="0px" y="0px" viewBox="0 0 35.1 35.1" xml:space="preserve">
+    <path fill="#5d5e5f" d="M24.5,13.4c-2.2,2.2-4.3,4.3-6.5,6.5c-2.2-2.2-4.3-4.3-6.5-6.5c-1.9-1.9-4.8,1.1-2.9,2.9c2.7,2.7,5.3,5.3,8,8
+      c0.8,0.8,2.1,0.8,2.9,0c2.7-2.7,5.3-5.3,8-8C29.3,14.4,26.4,11.5,24.5,13.4z"></path>
+  </svg>
+</span>
+<div style="position: relative;">
+  <div [class]="popUpClass" style="position: absolute; width: 100%;" *ngIf="isOpen">
+    <input (input)="searchOptions($event)" type="text" [class]="searchInputClass"
+      [placeholder]="searchInputPlaceHolder ? searchInputPlaceHolder : ''">
+    <div style="max-height: 350px; overflow-y: auto;">
+      <div (click)="selectItem(item)" *ngFor="let item of options">
+        <ng-container *ngIf="itemTemplate" [ngTemplateOutlet]="itemTemplate.templateRef"
+          [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
