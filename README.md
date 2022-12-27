@@ -16,12 +16,11 @@ At this time only the `Data Table, Alerts, Modal and Advanced select` components
 For install the npm packages that used in this project. run `npm i` and wait the installation ends.
 
 ## Build the library package
-First change directory to the library directory of the project using the following terminal command
-`cd projects/buludng`
-Then run `ng build --watch` for build the library package and use it in the demo application.
+First change directory to the library directory of the project using the following terminal command_
+`cd projects/buludng` Then run `ng build --watch` for build the library package and use it in the demo application.
 
 ## Run the demo application development server
-After build the library open a new terminal and Run `ng serve -o` for a dev server. Navigate to `http://localhost:4300/`. The application will automatically reload if you change any of the source files.
+After build the library open a new terminal and change the directory to the demo app directory of project using `cd projces/buludng-demo` and then Run `ng serve -o` for a dev server._Navigate to `http://localhost:4300/`. The application will automatically reload if you change any of the source files.
 
 ## Running unit tests
 
