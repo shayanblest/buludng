@@ -1,4 +1,4 @@
-import { Inject, Injectable, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Inject, Injectable, TemplateRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 const BACK_DROP_CLASS = "modal-backdrop";
@@ -11,13 +11,14 @@ const SHOW_CLASS = "show";
 export class BngModalService {
 
   private openedModals: any = [];
+  private interval: any;
   constructor(
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    // private cRef: ChangeDetectorRef
   ) { }
 
   openModal(modalTemplate: TemplateRef<any>): void {
     const embeddedView = modalTemplate.createEmbeddedView({});
-    embeddedView.detectChanges();
     let modal = embeddedView.rootNodes[0] as HTMLElement;
     let backdrop = this.document.createElement('div') as HTMLDivElement;
     backdrop.classList.add(BACK_DROP_CLASS);
@@ -36,6 +37,9 @@ export class BngModalService {
       }
       backdrop.classList.add(SHOW_CLASS);
     }, 50);
+    this.interval = setInterval(() => {
+      embeddedView.detectChanges();
+    }, 50)
   }
 
   closeModal(): void {
@@ -61,6 +65,7 @@ export class BngModalService {
       }, 300);
 
     }
+    clearInterval(this.interval);
 
   }
 }
