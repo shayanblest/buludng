@@ -29,7 +29,6 @@ export class DatatableService {
 
   private length: number = 10;
 
-  private totalRecords: number = 50;
 
 
   initDatatable(opt?: DataTableOptions) {
@@ -117,14 +116,6 @@ export class DatatableService {
     else
       this.getData();
 
-  }
-
-  getTotalPages(): number {
-    let mod = this.totalRecords % this.length;
-    if (mod != 0)
-      return (this.totalRecords / this.length) + 1;
-    else
-      return this.totalRecords / this.length;
   }
 
   getDataTableRequest(): Observable<DataTableRequest> {
