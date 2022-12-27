@@ -5,23 +5,27 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { DatatableModule } from 'buludng/datatable';
-import { AlertModule } from 'buludng/alert';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DatatableModule } from 'projects/buludng/datatable';
+import { AlertModule } from 'projects/buludng/alert';
 import { ModalModule } from 'projects/buludng/modal';
-import { TestComponentComponent } from './components/test-component/test-component.component';
+import { SelectModule } from 'projects/buludng/select';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TestComponentComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     DatatableModule,
     AlertModule,
-    ModalModule
+    ModalModule,
+    ReactiveFormsModule,
+    SelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -226,7 +226,7 @@
         </div>
         <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
           <div class="dataTables_paginate paging_simple_numbers">
-            <ul class="pagination" datatablePagination>
+            <ul class="pagination" *ngIf="data" datatablePagination [totalRecords]="data.totalRecords">
 
 
               <ng-template #prevButton>
@@ -242,7 +242,6 @@
                 <li class="paginate_button page-item"><a class="page-link">{{ pageNumber }}</a></li>
               </ng-template>
               
-
               <ng-template #nextButton>
                 <li class="paginate_button page-item next">
                   <a class="page-link"><i class="next"></i></a>
@@ -259,8 +258,17 @@
 </div>
 
 <ng-template #modal1>
-  <app-test-component></app-test-component>
 </ng-template>
 
 
 <a (click)="closeModal()" class="btn btn-primary">Close modal</a>
+
+<bng-select>
+  <p>salam</p>
+  <ng-template bngTemplate="item">
+    <p>item</p>
+  </ng-template>
+  <ng-template bngTemplate="selectedItem">
+    <p><b>selectedItem</b></p>
+  </ng-template>
+</bng-select>
