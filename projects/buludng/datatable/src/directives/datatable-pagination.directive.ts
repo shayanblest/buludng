@@ -1,41 +1,45 @@
-import { AfterContentInit, AfterViewInit, ContentChild, Directive, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { DataTableRequest } from '../models/datatable-request.model';
-import { DatatableService } from '../services/datatable.service';
+import { AfterContentInit, ContentChildren, Directive, ElementRef, Input, OnChanges, QueryList, SimpleChanges, TemplateRef } from '@angular/core';
+import { BngTemplateDirective } from './bng-template.directive';
+import { DatatableWrapperDirective } from './datatable-wrapper.directive';
 
 @Directive({
-  selector: 'ul[datatablePagination]'
+  selector: '[datatablePagination]'
 })
-export class DatatablePaginationDirective implements OnChanges {
+export class DatatablePaginationDirective implements AfterContentInit, OnChanges {
 
-  @ContentChild("prevButton") prevButton?: TemplateRef<any>;
-  @ContentChild("paginationItem") paginationItem?: TemplateRef<any>;
-  @ContentChild("nextButton") nextButton?: TemplateRef<any>;
-
-  pagionationItems: HTMLLIElement[] = [];
+  @ContentChildren(BngTemplateDirective) templateItems?: QueryList<BngTemplateDirective>;
 
   @Input() totalRecords: number = 0;
 
-  subscription?: Subscription;
+  private isReady: boolean = false;
 
   constructor(
-    private datatable: DatatableService,
+    private dtWrapper: DatatableWrapperDirective,
     private elementRef: ElementRef
   ) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const totalPages = this.getTotalPages(this.totalRecords);
-    setTimeout(() => {
-      this.renderPagination(totalPages);
-    }, 100);
+  ngAfterContentInit(): void {
+
+    const totalPages = this.getTotalPages(this.totalRecords, this.dtWrapper.state.length);
+    this.renderPagination(totalPages);
+    this.isReady = true;
   }
 
-  private getTotalPages(length: number): number {
-    let mod = this.totalRecords % length;
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (!this.isReady) return;
+
+    const totalPages = this.getTotalPages(this.totalRecords, this.dtWrapper.state.length);
+
+    this.renderPagination(totalPages);
+  }
+
+  private getTotalPages(total: number, length: number): number {
+    let mod = total % length;
     if (mod != 0)
-      return (this.totalRecords / length) + 1;
+      return (total / length) + 1;
     else
-      return this.totalRecords / length;
+      return total / length;
   }
 
   private renderPagination(totalPages: number) {
@@ -45,52 +49,67 @@ export class DatatablePaginationDirective implements OnChanges {
     if (totalPages < 1) {
       return;
     }
-    if (this.prevButton) {
-      const prevItem = this.prevButton.createEmbeddedView({});
+
+    const prevItemDirective = this.templateItems?.find(x => x.templateName == 'prevItem');
+
+    if (prevItemDirective) {
+      const prevItem = prevItemDirective.templateRef.createEmbeddedView({});
       prevItem.detectChanges();
       const previus = prevItem.rootNodes[0] as HTMLLIElement;
-      if (this.datatable.page <= 1)
+      if (this.dtWrapper.state.page <= 1)
         previus.classList.add('disabled');
       element.appendChild(previus);
-      previus.addEventListener('click', () => {
-        if (this.datatable.page > 1)
-          this.datatable.changePage(this.datatable.page - 1);
+      previus.addEventListener('click', (e) => {
+        if (this.dtWrapper.state.page > 1)
+          this.dtWrapper.changePage(this.dtWrapper.state.page - 1);
       })
     }
+
+    const itemDirective = this.templateItems?.find(x => x.templateName == 'item');
 
     for (let index = 1; index <= totalPages; index++) {
-      const pItem = this.paginationItem?.createEmbeddedView({ pageNumber: index })
-      pItem?.detectChanges();
-      const item = pItem?.rootNodes[0] as HTMLLIElement;
-      if (this.datatable.page == index)
-        item.classList.add("active");
+      if (itemDirective) {
+        const pItem = itemDirective.templateRef.createEmbeddedView({ $implicit: index })
+        pItem?.detectChanges();
+        const item = pItem?.rootNodes[0] as HTMLLIElement;
+        if (index == 1)
+          item.classList.add("active");
 
-      element.appendChild(item)
-      item.addEventListener('click', () => {
-        this.datatable.changePage(index);
-      })
+        element.appendChild(item)
+        item.addEventListener('click', () => {
+
+          const paginationItems = element.querySelectorAll('li');
+
+          paginationItems.forEach(x => x.classList.remove('active'));
+
+          item.classList.add('active');
+          this.dtWrapper.changePage(index);
+        })
+      }
+
     }
 
+    const nextItemDirective = this.templateItems?.find(x => x.templateName == 'nextItem');
 
-    if (this.nextButton) {
-      const nextItem = this.nextButton?.createEmbeddedView({});
+    if (nextItemDirective) {
+      const nextItem = nextItemDirective.templateRef.createEmbeddedView({});
       nextItem.detectChanges();
       const next = nextItem.rootNodes[0] as HTMLLIElement;
 
-      if (this.datatable.page >= totalPages)
+      if (this.dtWrapper.state.page >= totalPages)
         next.classList.add('disabled');
 
       element.appendChild(next);
       next.addEventListener('click', () => {
 
-        if (this.datatable.page < totalPages)
-          this.datatable.changePage(this.datatable.page + 1);
+        if (this.dtWrapper.state.page < totalPages)
+          this.dtWrapper.changePage(this.dtWrapper.state.page + 1);
 
       })
     }
 
-    if (this.datatable.page > totalPages) {
-      this.datatable.changePage(totalPages)
+    if (this.dtWrapper.state.page > totalPages) {
+      this.dtWrapper.changePage(totalPages)
     }
   }
 }

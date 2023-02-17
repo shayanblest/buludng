@@ -1,5 +1,5 @@
 export interface DataTableRequest {
-    searchValue: string;
+    searchValue?: string;
     page: number;
     length: number;
     sortColumn?: DataTableColumn;

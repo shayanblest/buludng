@@ -5,6 +5,8 @@ import { DatatableLengthDirective } from './directives/datatable-length.directiv
 import { DatatablePaginationDirective } from './directives/datatable-pagination.directive';
 import { DatatableSearchDirective } from './directives/datatable-search.directive';
 import { DatatableDirective } from './directives/datatable.directive';
+import { DatatableWrapperDirective } from './directives/datatable-wrapper.directive';
+import { BngTemplateDirective } from './directives/bng-template.directive';
 
 @NgModule({
   imports: [
@@ -15,14 +17,18 @@ import { DatatableDirective } from './directives/datatable.directive';
     DatatableLengthDirective,
     DatatablePaginationDirective,
     DatatableSearchDirective,
-    DatatableDirective
+    DatatableDirective,
+    DatatableWrapperDirective,
+    BngTemplateDirective
   ],
   exports: [
     DatatableColumnDirective,
     DatatableLengthDirective,
     DatatablePaginationDirective,
     DatatableSearchDirective,
-    DatatableDirective
+    DatatableDirective,
+    DatatableWrapperDirective,
+    BngTemplateDirective
   ]
 })
 export class DatatableModule { }
