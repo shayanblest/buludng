@@ -1,4 +1,4 @@
-import { AfterContentInit, ContentChild, ContentChildren, Directive, ElementRef, QueryList } from '@angular/core';
+import { AfterContentInit, ContentChild, ContentChildren, Directive, ElementRef, OnDestroy, QueryList } from '@angular/core';
 
 import { DataTableRequest } from '../models/datatable-request.model';
 import { DatatableColumnDirective } from './datatable-column.directive';
@@ -6,11 +6,12 @@ import { DatatableLengthDirective } from './datatable-length.directive';
 import { DatatableSearchDirective } from './datatable-search.directive';
 import { DatatablePaginationDirective } from './datatable-pagination.directive';
 import { DatatableDirective } from './datatable.directive';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[bngDatatableWrapper]'
 })
-export class DatatableWrapperDirective implements AfterContentInit {
+export class DatatableWrapperDirective implements AfterContentInit, OnDestroy {
 
   @ContentChild(DatatableDirective,
     { descendants: true, read: DatatableDirective }) datatable!: DatatableDirective;
@@ -32,7 +33,10 @@ export class DatatableWrapperDirective implements AfterContentInit {
     page: 1
   }
 
+  private subscriptions: Subscription[] = [];
+
   constructor() { }
+
 
   ngAfterContentInit(): void {
 
@@ -41,7 +45,9 @@ export class DatatableWrapperDirective implements AfterContentInit {
   }
 
 
-
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(x => x.unsubscribe());
+  }
 
   sort(columnName: string): void {
     if (!this.state.sortColumn) {
@@ -73,6 +79,8 @@ export class DatatableWrapperDirective implements AfterContentInit {
 
   changeLength(length: number): void {
     this.state.length = length;
+    this.state.page = 1;
+    this.pagination.changeLength(length);
     this.datatable.change(this.state);
   }
 
@@ -83,6 +91,7 @@ export class DatatableWrapperDirective implements AfterContentInit {
 
   changePage(pageNumber: number) {
     this.state.page = pageNumber;
+    this.pagination.changePage(pageNumber);
     this.datatable.change(this.state);
   }
 
@@ -90,7 +99,7 @@ export class DatatableWrapperDirective implements AfterContentInit {
     this.addEventToColumns();
     this.addEventToLength();
     this.addEventToSearch();
-    // this.addEventListenerToPagination();
+    this.addEventListenerToPagination();
   }
 
   private addEventToColumns(): void {
@@ -125,10 +134,13 @@ export class DatatableWrapperDirective implements AfterContentInit {
     })
   }
 
-  // private addEventListenerToPagination(): void {
-  //   this.pagination.pageChanged.subscribe((pageNumber: number) => {
-  //     this.changePage(pageNumber);
-  //   });
-  // }
+  private addEventListenerToPagination(): void {
+
+    const sub = this.pagination.pageChanged.subscribe((pageNumber: number) => {
+      this.changePage(pageNumber);
+    });
+
+    this.subscriptions.push(sub);
+  }
 
 }

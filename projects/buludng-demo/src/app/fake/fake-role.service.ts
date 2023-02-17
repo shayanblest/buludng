@@ -17,10 +17,9 @@ export class FakeRoleService {
       data: FakeDB.roles,
       totalRecords: 20
     }
-    if (req) {
-      if (req.length > 10) {
-        res.totalRecords = 5
-      }
+
+    if (req?.searchValue) {
+      res.totalRecords = 101;
     }
     return of(res);
   }
