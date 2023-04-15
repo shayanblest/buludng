@@ -6,7 +6,7 @@
     "buludng": {
       "projectType": "library",
       "root": "projects/buludng",
-      "sourceRoot": "projects/buludng/src",
+      "sourceRoot": "projects/buludng",
       "prefix": "lib",
       "architect": {
         "build": {
@@ -27,7 +27,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/buludng/src/test.ts",
+            "main": "projects/buludng/test.ts",
             "tsConfig": "projects/buludng/tsconfig.spec.json",
             "karmaConfig": "projects/buludng/karma.conf.js"
           }
